@@ -1,6 +1,11 @@
 ## Introduction
+
 This repository contains the code implementation for the paper **"Cross-Modal Semantic Alignment and Fusion of POIs and Remote Sensing Imagery via Pre-Trained Models for Urban Building Function Classification"**.
 
+We propose a multimodal architecture that leverages pre-trained vision–language models to achieve deep semantic alignment and fusion between remote sensing imagery and POI-derived textual information. By integrating building-level visual features, surrounding POI semantics, and spatial context through mask-guided cross-attention reasoning, the framework enables fine-grained urban building function classification.
+
+
+![example](images/Overview-of-the-proposed-architecture.jpg)
 
 
 ## Installation
@@ -23,10 +28,13 @@ This project follows the same runtime environment as [RSRefSeg](https://github.c
 
 
 ### BuiltPOI-YRD (Building Understanding with Image-derived Local Textures and POI in the YRD)
-This project is based on a self-constructed dataset. The remote sensing imagery is acquired from the Jilin-1 satellite platform, while the POI data is sourced from Amap (Gaode Map). Building footprints have been manually annotated, and for each building, the dataset provides associated POI information within a defined surrounding area.
+This project is based on a self-constructed multimodal dataset. Remote sensing imagery is acquired from the Jilin-1 satellites, and POI data is collected from AMap (Gaode Map).
 
+The dataset is organized at the building level, where each sample includes a remote sensing image patch, a building mask with function label, and associated nearby POIs with semantic categories, forming aligned visual–semantic pairs for multimodal building function classification.
 
-#### Data access
+![example](images/Workflow-of-dataset-construction.jpg)
+
+#### Data Access
 - Download link for BuiltPOI-YRD (directly usable for training in this project): 
   1. 链接: https://pan.baidu.com/s/18d1MDiH_D38XOQxg1MEaWQ?pwd=5wp7 提取码: 5wp7 
   2. 链接: https://pan.baidu.com/s/1kIOpXUrpcSS7bpmo2Ye3Fg?pwd=a3jp 提取码: a3jp 
@@ -35,7 +43,7 @@ This project is based on a self-constructed dataset. The remote sensing imagery 
   链接: https://pan.baidu.com/s/13luPZtvEKD-TY9t6k5z3ew?pwd=bg39 提取码: bg39 
 
 
-#### Pretrained weights access
+#### Pretrained Weights Access
 - Download link for pretrained weights in this study: 
   链接: https://pan.baidu.com/s/18fd4guiFHzAPlbBpuMAkwA?pwd=yyrr 提取码: yyrr 
 
@@ -134,7 +142,9 @@ Our project was developed based on [RSRefSeg](https://github.com/KyanChen/RSRefS
 
 ## Citation
 
-If you use the code or benchmarks from this project in your research, please cite RSRefSeg using the following bibtex.
+1. The citation of our study will be provided once our paper is available.
+
+2. Our project builds upon the RSRefSeg framework. If you find it useful in your research, we kindly recommend citing the original work using the following BibTeX.
 
 ```
 @article{chen2025rsrefseg,
@@ -145,8 +155,6 @@ If you use the code or benchmarks from this project in your research, please cit
 }
 ```
 
-The citation for our work will be provided once our paper is available.
-
 
 ## License
 
@@ -155,4 +163,4 @@ This project uses the [Apache 2.0 open source license](LICENSE).
 
 ## Contact
 
-For further questions, feel free to contact us. Email: wdj2022nnu@163.com
+For further questions, feel free to contact us.
