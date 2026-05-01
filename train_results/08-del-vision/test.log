@@ -1,0 +1,622 @@
+2026/01/30 01:27:43 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.10.18 | packaged by conda-forge | (main, Jun  4 2025, 14:45:41) [GCC 13.3.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1570131703
+    GPU 0: NVIDIA A800 80GB PCIe
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 12.8, V12.8.61
+    GCC: gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    PyTorch: 2.3.1+cu121
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2022.2-Product Build 20220804 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.3.6 (Git Hash 86e6af5974177e513fd3fee58425e1063e7f1361)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.9.2
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=8.9.2, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=2.3.1, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+    TorchVision: 0.18.1+cu121
+    OpenCV: 4.12.0
+    MMEngine: 0.10.7
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1570131703
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2026/01/30 01:27:43 - mmengine - INFO - Config:
+base_lr = 0.0001
+batch_size = 4
+building_labels_root = '/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/building_labels'
+crop_size = (
+    1024,
+    1024,
+)
+custom_imports = dict(
+    allow_failed_imports=False, imports=[
+        'rsris',
+    ])
+data_preprocessor = dict(
+    bgr_to_rgb=True,
+    mean=[
+        0,
+        0,
+        0,
+    ],
+    pad_val=0,
+    seg_pad_val=255,
+    size=(
+        1024,
+        1024,
+    ),
+    std=[
+        255.0,
+        255.0,
+        255.0,
+    ],
+    type='SegDataPreProcessor')
+data_root = '/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/JL_Images'
+dataset_type = 'rsris.datasets.refdataset.RefSegDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        by_epoch=True,
+        interval=1,
+        max_keep_ckpts=5,
+        rule='greater',
+        save_best='RefSegClsMetric/Function_F1_Macro',
+        save_last=True,
+        type='mmengine.hooks.CheckpointHook'),
+    early_stop=dict(
+        min_delta=0.0001,
+        monitor='RefSegClsMetric/Function_F1_Macro',
+        patience=20,
+        rule='greater',
+        type='EarlyStoppingHook'),
+    logger=dict(
+        interval=20,
+        log_metric_by_epoch=False,
+        type='mmengine.hooks.LoggerHook'),
+    param_scheduler=dict(type='mmengine.hooks.ParamSchedulerHook'),
+    sampler_seed=dict(type='mmengine.hooks.DistSamplerSeedHook'),
+    timer=dict(type='mmengine.hooks.IterTimerHook'),
+    visualization=dict(type='mmseg.engine.SegVisualizationHook'))
+default_scope = 'mmseg'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+find_unused_parameters = True
+init_from = None
+launcher = 'none'
+load_from = 'work_dirs/no-vision-fusion-0130/best_epoch_9.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True)
+max_epochs = 100
+model = dict(
+    backbone=dict(
+        model_name_or_path='KyanChen/sam-vit-base',
+        type='rsris.models.models.RefSegSamVisionEncoder'),
+    clip_text_encoder=dict(
+        model_name_or_path='lcybuaa1111/Git-RSCLIP',
+        type='rsris.models.models.RefSegSiglipTextModel'),
+    cls_head=dict(
+        dropout_ratio=0.1,
+        in_channels=1024,
+        loss_cls=dict(
+            loss_name='loss_function_cls',
+            loss_weight=3.0,
+            type='mmseg.CrossEntropyLoss',
+            use_sigmoid=False),
+        norm_cfg=dict(num_groups=32, requires_grad=True, type='GN'),
+        num_classes=3,
+        num_heads=8,
+        type='ReasoningClsHead'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            0,
+            0,
+            0,
+        ],
+        pad_val=0,
+        seg_pad_val=255,
+        size=(
+            1024,
+            1024,
+        ),
+        std=[
+            255.0,
+            255.0,
+            255.0,
+        ],
+        type='SegDataPreProcessor'),
+    init_cfg=None,
+    lora_cfg=dict(
+        backbone=dict(
+            lora_alpha=32,
+            lora_dropout=0.1,
+            r=16,
+            target_modules=[
+                'qkv',
+                'proj',
+                'lin1',
+                'lin2',
+                'neck.conv1',
+                'neck.conv2',
+            ]),
+        clip_text_encoder=dict(
+            lora_alpha=32,
+            lora_dropout=0.1,
+            r=16,
+            target_modules=[
+                'k_proj',
+                'v_proj',
+                'q_proj',
+                'out_proj',
+                'mlp.fc1',
+                'mlp.fc2',
+            ])),
+    norm_cfg=dict(num_groups=32, requires_grad=True, type='GN'),
+    sam_mask_decoder=dict(
+        model_name_or_path='KyanChen/sam-vit-base',
+        type='rsris.models.models.RefSegSamMaskDecoder'),
+    sam_prompt_encoder=dict(
+        model_name_or_path='KyanChen/sam-vit-base',
+        type='rsris.models.models.RefSegSamPromptEncoder'),
+    seg_head=dict(
+        loss_decode=[
+            dict(
+                loss_name='loss_ce',
+                loss_weight=1.0,
+                type='mmseg.CrossEntropyLoss',
+                use_sigmoid=False),
+            dict(
+                classes=[
+                    1,
+                ],
+                loss_name='loss_lovasz',
+                loss_type='multi_class',
+                loss_weight=1.0,
+                per_image=False,
+                reduction='none',
+                type='mmseg.LovaszLoss'),
+        ],
+        num_classes=2,
+        out_channels=1,
+        threshold=0.5,
+        type='SamSupervisionHead'),
+    test_cfg=dict(mode='whole'),
+    train_cfg=dict(),
+    type='rsris.models.models.RefSegEncoderDecoder')
+norm_cfg = dict(num_groups=32, requires_grad=True, type='GN')
+num_workers = 8
+optim_wrapper = dict(
+    accumulative_counts=4,
+    dtype='bfloat16',
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ),
+        lr=0.0001,
+        type='torch.optim.AdamW',
+        weight_decay=0.01),
+    type='mmengine.optim.AmpOptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=5,
+        start_factor=0.01,
+        type='mmengine.optim.scheduler.lr_scheduler.LinearLR'),
+    dict(
+        T_max=100,
+        begin=5,
+        by_epoch=True,
+        end=100,
+        eta_min_ratio=0.01,
+        type='mmengine.optim.scheduler.lr_scheduler.CosineAnnealingLR'),
+]
+persistent_workers = True
+resume = False
+runner_type = 'Runner'
+test_cfg = dict(type='mmengine.runner.loops.TestLoop')
+test_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='datainfo/test.jsonl',
+        building_labels_root=
+        '/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/building_labels',
+        data_root='/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/JL_Images',
+        pipeline=[
+            dict(type='mmcv.transforms.loading.LoadImageFromFile'),
+            dict(type='rsris.datasets.refdataset.LoadSegAnnotations'),
+            dict(
+                keep_ratio=False,
+                resize_labels=False,
+                scale=(
+                    1024,
+                    1024,
+                ),
+                type='rsris.datasets.refdataset.NewResize'),
+            dict(
+                keys=[
+                    'gt_building_seg',
+                ],
+                type='rsris.datasets.refdataset.ToTensor'),
+            dict(
+                meta_keys=(
+                    'poi_text',
+                    'poi_prompt',
+                    'img_path',
+                    'seg_map_path',
+                    'ori_shape',
+                    'img_shape',
+                    'pad_shape',
+                    'scale_factor',
+                    'flip',
+                    'flip_direction',
+                    'reduce_zero_label',
+                ),
+                type='rsris.datasets.refdataset.PackMultiTaskInputs'),
+        ],
+        test_mode=True,
+        type='rsris.datasets.refdataset.RefSegDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(
+        shuffle=False, type='mmengine.dataset.sampler.DefaultSampler'))
+test_evaluator = [
+    dict(type='rsris.RefSegClsMetric'),
+]
+test_pipeline = [
+    dict(type='mmcv.transforms.loading.LoadImageFromFile'),
+    dict(type='rsris.datasets.refdataset.LoadSegAnnotations'),
+    dict(
+        keep_ratio=False,
+        resize_labels=False,
+        scale=(
+            1024,
+            1024,
+        ),
+        type='rsris.datasets.refdataset.NewResize'),
+    dict(
+        keys=[
+            'gt_building_seg',
+        ], type='rsris.datasets.refdataset.ToTensor'),
+    dict(
+        meta_keys=(
+            'poi_text',
+            'poi_prompt',
+            'img_path',
+            'seg_map_path',
+            'ori_shape',
+            'img_shape',
+            'pad_shape',
+            'scale_factor',
+            'flip',
+            'flip_direction',
+            'reduce_zero_label',
+        ),
+        type='rsris.datasets.refdataset.PackMultiTaskInputs'),
+]
+train_cfg = dict(
+    max_epochs=100, type='mmengine.runner.EpochBasedTrainLoop', val_interval=1)
+train_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='datainfo/train.jsonl',
+        building_labels_root=
+        '/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/building_labels',
+        data_root='/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/JL_Images',
+        pipeline=[
+            dict(type='mmcv.transforms.loading.LoadImageFromFile'),
+            dict(type='rsris.datasets.refdataset.LoadSegAnnotations'),
+            dict(
+                keep_ratio=False,
+                resize_labels=True,
+                scale=(
+                    1024,
+                    1024,
+                ),
+                type='rsris.datasets.refdataset.NewResize'),
+            dict(
+                keys=[
+                    'gt_building_seg',
+                ],
+                type='rsris.datasets.refdataset.ToTensor'),
+            dict(
+                meta_keys=(
+                    'poi_text',
+                    'poi_prompt',
+                    'img_path',
+                    'seg_map_path',
+                    'ori_shape',
+                    'img_shape',
+                    'pad_shape',
+                    'scale_factor',
+                    'flip',
+                    'flip_direction',
+                    'reduce_zero_label',
+                ),
+                type='rsris.datasets.refdataset.PackMultiTaskInputs'),
+        ],
+        type='rsris.datasets.refdataset.RefSegDataset'),
+    drop_last=True,
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='mmengine.dataset.sampler.DefaultSampler'))
+train_pipeline = [
+    dict(type='mmcv.transforms.loading.LoadImageFromFile'),
+    dict(type='rsris.datasets.refdataset.LoadSegAnnotations'),
+    dict(
+        keep_ratio=False,
+        resize_labels=True,
+        scale=(
+            1024,
+            1024,
+        ),
+        type='rsris.datasets.refdataset.NewResize'),
+    dict(
+        keys=[
+            'gt_building_seg',
+        ], type='rsris.datasets.refdataset.ToTensor'),
+    dict(
+        meta_keys=(
+            'poi_text',
+            'poi_prompt',
+            'img_path',
+            'seg_map_path',
+            'ori_shape',
+            'img_shape',
+            'pad_shape',
+            'scale_factor',
+            'flip',
+            'flip_direction',
+            'reduce_zero_label',
+        ),
+        type='rsris.datasets.refdataset.PackMultiTaskInputs'),
+]
+val_cfg = dict(type='mmengine.runner.loops.ValLoop')
+val_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='datainfo/val.jsonl',
+        building_labels_root=
+        '/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/building_labels',
+        data_root='/XYFS01/HDD_POOL/njnu_ynwen/njnu_ynwen_1/JL_Images',
+        pipeline=[
+            dict(type='mmcv.transforms.loading.LoadImageFromFile'),
+            dict(type='rsris.datasets.refdataset.LoadSegAnnotations'),
+            dict(
+                keep_ratio=False,
+                resize_labels=False,
+                scale=(
+                    1024,
+                    1024,
+                ),
+                type='rsris.datasets.refdataset.NewResize'),
+            dict(
+                keys=[
+                    'gt_building_seg',
+                ],
+                type='rsris.datasets.refdataset.ToTensor'),
+            dict(
+                meta_keys=(
+                    'poi_text',
+                    'poi_prompt',
+                    'img_path',
+                    'seg_map_path',
+                    'ori_shape',
+                    'img_shape',
+                    'pad_shape',
+                    'scale_factor',
+                    'flip',
+                    'flip_direction',
+                    'reduce_zero_label',
+                ),
+                type='rsris.datasets.refdataset.PackMultiTaskInputs'),
+        ],
+        test_mode=True,
+        type='rsris.datasets.refdataset.RefSegDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(
+        shuffle=False, type='mmengine.dataset.sampler.DefaultSampler'))
+val_evaluator = [
+    dict(type='rsris.RefSegClsMetric'),
+]
+val_interval = 1
+vis_backends = [
+    dict(type='mmengine.visualization.LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='mmseg.visualization.SegLocalVisualizer',
+    vis_backends=[
+        dict(type='mmengine.visualization.LocalVisBackend'),
+    ])
+work_dir = './work_dirs/THREE_CLS'
+
+2026/01/30 01:29:29 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2026/01/30 01:29:29 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+(LOWEST      ) EarlyStoppingHook                  
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+(LOWEST      ) EarlyStoppingHook                  
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2026/01/30 01:30:09 - mmengine - INFO - Load checkpoint from work_dirs/no-vision-fusion-0130/best_epoch_9.pth
+2026/01/30 01:30:28 - mmengine - INFO - Epoch(test) [ 20/946]    eta: 0:15:00  time: 0.2165  data_time: 0.0099  memory: 11556  
+2026/01/30 01:30:33 - mmengine - INFO - Epoch(test) [ 40/946]    eta: 0:09:00  time: 0.2207  data_time: 0.0134  memory: 11556  
+2026/01/30 01:30:37 - mmengine - INFO - Epoch(test) [ 60/946]    eta: 0:06:57  time: 0.2203  data_time: 0.0128  memory: 11556  
+2026/01/30 01:30:42 - mmengine - INFO - Epoch(test) [ 80/946]    eta: 0:05:53  time: 0.2219  data_time: 0.0135  memory: 11556  
+2026/01/30 01:30:46 - mmengine - INFO - Epoch(test) [100/946]    eta: 0:05:13  time: 0.2198  data_time: 0.0127  memory: 11556  
+2026/01/30 01:30:50 - mmengine - INFO - Epoch(test) [120/946]    eta: 0:04:45  time: 0.2201  data_time: 0.0126  memory: 11556  
+2026/01/30 01:30:55 - mmengine - INFO - Epoch(test) [140/946]    eta: 0:04:24  time: 0.2199  data_time: 0.0126  memory: 11556  
+2026/01/30 01:30:59 - mmengine - INFO - Epoch(test) [160/946]    eta: 0:04:06  time: 0.2177  data_time: 0.0114  memory: 11556  
+2026/01/30 01:31:04 - mmengine - INFO - Epoch(test) [180/946]    eta: 0:03:52  time: 0.2186  data_time: 0.0121  memory: 11556  
+2026/01/30 01:31:08 - mmengine - INFO - Epoch(test) [200/946]    eta: 0:03:40  time: 0.2243  data_time: 0.0134  memory: 11556  
+2026/01/30 01:31:12 - mmengine - INFO - Epoch(test) [220/946]    eta: 0:03:29  time: 0.2230  data_time: 0.0133  memory: 11556  
+2026/01/30 01:31:17 - mmengine - INFO - Epoch(test) [240/946]    eta: 0:03:19  time: 0.2205  data_time: 0.0123  memory: 11556  
+2026/01/30 01:31:21 - mmengine - INFO - Epoch(test) [260/946]    eta: 0:03:10  time: 0.2204  data_time: 0.0125  memory: 11556  
+2026/01/30 01:31:26 - mmengine - INFO - Epoch(test) [280/946]    eta: 0:03:02  time: 0.2230  data_time: 0.0129  memory: 11556  
+2026/01/30 01:31:30 - mmengine - INFO - Epoch(test) [300/946]    eta: 0:02:54  time: 0.2248  data_time: 0.0133  memory: 11556  
+2026/01/30 01:31:35 - mmengine - INFO - Epoch(test) [320/946]    eta: 0:02:47  time: 0.2228  data_time: 0.0132  memory: 11556  
+2026/01/30 01:31:39 - mmengine - INFO - Epoch(test) [340/946]    eta: 0:02:40  time: 0.2211  data_time: 0.0120  memory: 11556  
+2026/01/30 01:31:44 - mmengine - INFO - Epoch(test) [360/946]    eta: 0:02:33  time: 0.2206  data_time: 0.0126  memory: 11556  
+2026/01/30 01:31:48 - mmengine - INFO - Epoch(test) [380/946]    eta: 0:02:27  time: 0.2244  data_time: 0.0127  memory: 11556  
+2026/01/30 01:31:52 - mmengine - INFO - Epoch(test) [400/946]    eta: 0:02:21  time: 0.2225  data_time: 0.0128  memory: 11556  
+2026/01/30 01:31:57 - mmengine - INFO - Epoch(test) [420/946]    eta: 0:02:15  time: 0.2219  data_time: 0.0130  memory: 11556  
+2026/01/30 01:32:01 - mmengine - INFO - Epoch(test) [440/946]    eta: 0:02:09  time: 0.2242  data_time: 0.0133  memory: 11556  
+2026/01/30 01:32:06 - mmengine - INFO - Epoch(test) [460/946]    eta: 0:02:03  time: 0.2243  data_time: 0.0132  memory: 11556  
+2026/01/30 01:32:10 - mmengine - INFO - Epoch(test) [480/946]    eta: 0:01:57  time: 0.2225  data_time: 0.0124  memory: 11556  
+2026/01/30 01:32:15 - mmengine - INFO - Epoch(test) [500/946]    eta: 0:01:52  time: 0.2253  data_time: 0.0129  memory: 11556  
+2026/01/30 01:32:19 - mmengine - INFO - Epoch(test) [520/946]    eta: 0:01:46  time: 0.2258  data_time: 0.0138  memory: 11556  
+2026/01/30 01:32:24 - mmengine - INFO - Epoch(test) [540/946]    eta: 0:01:41  time: 0.2221  data_time: 0.0126  memory: 11556  
+2026/01/30 01:32:28 - mmengine - INFO - Epoch(test) [560/946]    eta: 0:01:35  time: 0.2235  data_time: 0.0127  memory: 11556  
+2026/01/30 01:32:33 - mmengine - INFO - Epoch(test) [580/946]    eta: 0:01:30  time: 0.2249  data_time: 0.0134  memory: 11556  
+2026/01/30 01:32:37 - mmengine - INFO - Epoch(test) [600/946]    eta: 0:01:25  time: 0.2239  data_time: 0.0126  memory: 11556  
+2026/01/30 01:32:42 - mmengine - INFO - Epoch(test) [620/946]    eta: 0:01:20  time: 0.2231  data_time: 0.0130  memory: 11556  
+2026/01/30 01:32:46 - mmengine - INFO - Epoch(test) [640/946]    eta: 0:01:15  time: 0.2213  data_time: 0.0121  memory: 11556  
+2026/01/30 01:32:51 - mmengine - INFO - Epoch(test) [660/946]    eta: 0:01:09  time: 0.2221  data_time: 0.0120  memory: 11556  
+2026/01/30 01:32:55 - mmengine - INFO - Epoch(test) [680/946]    eta: 0:01:04  time: 0.2235  data_time: 0.0130  memory: 11556  
+2026/01/30 01:33:00 - mmengine - INFO - Epoch(test) [700/946]    eta: 0:00:59  time: 0.2246  data_time: 0.0132  memory: 11556  
+2026/01/30 01:33:04 - mmengine - INFO - Epoch(test) [720/946]    eta: 0:00:54  time: 0.2230  data_time: 0.0133  memory: 11556  
+2026/01/30 01:33:08 - mmengine - INFO - Epoch(test) [740/946]    eta: 0:00:49  time: 0.2228  data_time: 0.0123  memory: 11556  
+2026/01/30 01:33:13 - mmengine - INFO - Epoch(test) [760/946]    eta: 0:00:44  time: 0.2225  data_time: 0.0126  memory: 11556  
+2026/01/30 01:33:17 - mmengine - INFO - Epoch(test) [780/946]    eta: 0:00:40  time: 0.2229  data_time: 0.0127  memory: 11556  
+2026/01/30 01:33:22 - mmengine - INFO - Epoch(test) [800/946]    eta: 0:00:35  time: 0.2228  data_time: 0.0123  memory: 11556  
+2026/01/30 01:33:26 - mmengine - INFO - Epoch(test) [820/946]    eta: 0:00:30  time: 0.2223  data_time: 0.0123  memory: 11556  
+2026/01/30 01:33:31 - mmengine - INFO - Epoch(test) [840/946]    eta: 0:00:25  time: 0.2230  data_time: 0.0121  memory: 11556  
+2026/01/30 01:33:35 - mmengine - INFO - Epoch(test) [860/946]    eta: 0:00:20  time: 0.2239  data_time: 0.0127  memory: 11556  
+2026/01/30 01:33:40 - mmengine - INFO - Epoch(test) [880/946]    eta: 0:00:15  time: 0.2236  data_time: 0.0125  memory: 11556  
+2026/01/30 01:33:44 - mmengine - INFO - Epoch(test) [900/946]    eta: 0:00:10  time: 0.2220  data_time: 0.0114  memory: 11556  
+2026/01/30 01:33:49 - mmengine - INFO - Epoch(test) [920/946]    eta: 0:00:06  time: 0.2221  data_time: 0.0118  memory: 11556  
+2026/01/30 01:33:53 - mmengine - INFO - Epoch(test) [940/946]    eta: 0:00:01  time: 0.2222  data_time: 0.0120  memory: 11556  
+2026/01/30 01:33:55 - mmengine - INFO - 
+=====================================================================================
+2026/01/30 01:33:55 - mmengine - INFO -  [Task 1 - Building Segmentation]
+2026/01/30 01:33:55 - mmengine - INFO -   >> mIoU: 84.16% | Dice: 91.40% | Prec: 90.83% | Rec: 91.98%
+2026/01/30 01:33:55 - mmengine - INFO - -------------------------------------------------------------------------------------
+2026/01/30 01:33:55 - mmengine - INFO -  [Task 2 - Function Reasoning (Overall)]
+2026/01/30 01:33:55 - mmengine - INFO -   >> Overall Acc: 70.48% | Macro F1: 68.87% | Weighted F1: 70.73%
+2026/01/30 01:33:55 - mmengine - INFO -   >> Macro Prec: 68.81% | Macro Rec: 69.03%
+2026/01/30 01:33:55 - mmengine - INFO -  [Analysis] High-IoU (>0.8) Macro F1: 69.59%
+2026/01/30 01:33:55 - mmengine - INFO - -------------------------------------------------------------------------------------
+2026/01/30 01:33:55 - mmengine - INFO -  Class-wise Performance:
++-----------------------+--------+----------+---------+---------+
+|       Class Name      | F1 (%) | Prec (%) | Rec (%) | Support |
++-----------------------+--------+----------+---------+---------+
+|      Residential      | 81.77  |  84.38   |  79.31  |   1600  |
+| Commercial-Industrial | 60.99  |  59.00   |  63.13  |   914   |
+|     Public service    | 63.84  |  63.06   |  64.65  |   1270  |
++-----------------------+--------+----------+---------+---------+
+2026/01/30 01:33:55 - mmengine - INFO - -------------------------------------------------------------------------------------
+2026/01/30 01:33:55 - mmengine - INFO -  Confusion Matrix (Vertical: Pred, Horizontal: GT):
++-----------------------+-------------+-----------------------+----------------+
+|      (Pred \ GT)      | Residential | Commercial-Industrial | Public service |
++-----------------------+-------------+-----------------------+----------------+
+|      Residential      |     1269    |          109          |      222       |
+| Commercial-Industrial |      78     |          577          |      259       |
+|     Public service    |     157     |          292          |      821       |
++-----------------------+-------------+-----------------------+----------------+
+2026/01/30 01:33:55 - mmengine - INFO - =====================================================================================
+
+2026/01/30 01:33:55 - mmengine - INFO - Epoch(test) [946/946]    RefSegClsMetric/Building_IoU: 84.1638  RefSegClsMetric/Building_Dice: 91.4011  RefSegClsMetric/Function_F1_Macro: 68.8668  RefSegClsMetric/Function_F1_Weighted: 70.7324  RefSegClsMetric/Function_Acc: 70.4810  data_time: 0.0157  time: 0.2382
