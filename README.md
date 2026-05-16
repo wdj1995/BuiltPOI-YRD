@@ -135,6 +135,11 @@ python demo/inference.py --config configs/config-b-inference.py --checkpoint ${C
 If you do not wish to perform inference on the full test set, you can create a custom "test-1.jsonl" file containing only the samples you want to evaluate. Then, update the ann_file path in the test_dataloader section of "config-b-inference.py" to point to your custom file.
 
 
+## Comparison Methods
+We conduct comparative experiments on building function classification using traditional machine learning and single-modal deep learning methods as baselines. 
+All implementations of the comparative baseline methods are stored in the "[comparison_methods](comparison_methods)" folder.
+
+
 ## Acknowledgments
 
 Our project was developed based on [RSRefSeg](https://github.com/KyanChen/RSRefSeg) and [MMSegmentation](https://github.com/open-mmlab/mmsegmentation). We thank the developers of these projects.

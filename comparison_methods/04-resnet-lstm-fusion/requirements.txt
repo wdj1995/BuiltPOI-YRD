@@ -1,0 +1,10 @@
+torch
+torchvision
+transformers
+safetensors
+numpy
+Pillow
+scikit-learn
+tqdm
+gensim
+tensorboard
